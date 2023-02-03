@@ -15,5 +15,5 @@
 ## CORS pour la sécurité du serveur.
 
 
-## 3- Photos du projet 
+# 3- Photos du projet 
 
