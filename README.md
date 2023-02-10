@@ -5,7 +5,8 @@
 
 # 1 - Explication
 
-##
+## Durant cette semaine d'IOT, nous avons fabriqué un écran magique.
+## Le fonctionnement est très simple : à l'aide d'un potentiommètre, nous dessinons des formes directement sur un écran d'ordinateur de manière verticale et horizontale. 
 
 # 2 - technologie utilisés
 
@@ -17,7 +18,7 @@
 
 # 3- Photos du projet 
 
-## les images sont dans le dossier images
+## à retrouver dans le dossier images
 
 # 4- Vidéo de démonstration
 
