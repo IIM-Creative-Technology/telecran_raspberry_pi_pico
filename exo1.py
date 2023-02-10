@@ -7,24 +7,26 @@ from machine import ADC, Pin
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 
-ssid = 'Pierro-Access-point'
-password = '123456789'
+ssid = 'Samsung de Lynda'
+password = 'Lyn$2016B'
 wlan.connect(ssid, password)
-url = 'http://192.168.4.8:3000/data'
-pot = ADC(26)
+url = "http://192.168.113.195:3000/data"
+
+port = ADC(26)
+
+'''
 headers = {'Content-Type': 'application/json'}
 print(wlan.isconnected())
 while not wlan.isconnected():
-    print('no co')
+    print('no connection')
     utime.sleep(1)
     pass
+'''
 
 while(True):
     try:
-        print(pot.read_u16())
-        #r = urequests.get("http://192.168.4.8:3000/")
-        r = urequests.post(url, headers=headers, data=pot.read_u16())
-        print(r.json())
-        r.close()
-    except Exception as e :
+        print("POST")
+        r = urequests.post(url)  #lance une requete sur l'url
+        print(r.ujson()) # traite sa reponse en Json
+    except Exception as e:
         print(e)

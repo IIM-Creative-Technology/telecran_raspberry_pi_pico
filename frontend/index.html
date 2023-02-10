@@ -1,73 +1,72 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
 <!DOCTYPE html>
-
-
-<style>
-  #canvas {
-    border: 1px solid black;
-  }
-  button, input[type="range"] {
-    margin: 10px;
-  }
-  #colorPicker {
-    margin-top: 10px;
-  }
-</style>
-</head>
-<body>
-<div>
-   <button id="reset">Reset</button>
-  <br />
-  <input type="color" id="colorPicker" value="#000000">
-</div>
-<canvas id="canvas" width="500" height="500"></canvas>
-<script>
-    const canvas = document.getElementById("canvas");
-    const ctx = canvas.getContext("2d");
-    let x = 250;
-    let y = 250;
-    let color = "#000000";
-    let step = 10;
-
-    document.addEventListener("keydown", function(event) {
+<html>
+  <head>
+    <style>
+      #canvas {
+        border: 1px solid black;
+      }
+      button, input[type="range"] {
+        margin: 10px;
+      }
+      #colorPicker {
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <button id="reset">Reset</button>
+      <br />
+      <input type="color" id="colorPicker" value="#000000">
+    </div>
+    <canvas id="canvas" width="500" height="500"></canvas>
+    <script>
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      let x = 250;
+      let y = 250;
+      let color = "#000000";
+      let step = 10;
+      
+      document.addEventListener("keydown", function(event) {
         ctx.beginPath();
         ctx.moveTo(x, y);
         switch (event.key) {
-            case "ArrowUp":
-                y -= step;
-                break;
-            case "ArrowDown":
-                y += step;
-                break;
-            case "ArrowLeft":
-                x -= step;
-                break;
-            case "ArrowRight":
-                x += step;
-                break;
+          case "ArrowLeft":
+            x -= step;
+            break;
+          case "ArrowRight":
+            x += step;
+            break;
         }
         ctx.lineTo(x, y);
         ctx.strokeStyle = color;
         ctx.stroke();
-    });
 
-    document.getElementById("reset").addEventListener("click", function() {
+        // Envoyer une requête AJAX pour récupérer la valeur du potentiomètre
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://172.20.10.4:3000/data", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                // Récupérer la valeur du potentiomètre
+                var potentiometerValue = xhr.responseText;
+
+                // Utiliser la valeur du potentiomètre pour déterminer la position de l'axe Y
+                y = potentiometerValue;
+            }
+        };
+        xhr.send();
+      });
+      
+document.getElementById("reset").addEventListener("click", function() {
         x = 250;
         y = 250;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-    });
-
-    document.getElementById("colorPicker").addEventListener("change", function() {
+      });
+      
+document.getElementById("colorPicker").addEventListener("change", function() {
         color = this.value;
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>

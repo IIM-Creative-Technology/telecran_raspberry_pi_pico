@@ -1,16 +1,10 @@
-let button = document.getElementById('button')
-let fetch = document.getElementById('fetch')
+document.getElementById("send-request-button").addEventListener("click", function() {
 
-button.addEventListener('click', () =>{
-    fetch("http://192.168.4.8:3000/data", {
-        method: "POST",
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          },
-        body: "left",
-        
-    }).then(res => res.json())
-    .then(data => console.log(data))
-
-}) 
+    fetch("http://172.20.10.4:3000/")
+      .then(response => response.text())
+      .then(potentiometerValue => {
+        document.getElementById("potentiometer-value-container").innerHTML = `Valeur du potentiomètre : ${potentiometerValue}`;
+      })
+      .catch(error => console.error(error));
+  });
 
